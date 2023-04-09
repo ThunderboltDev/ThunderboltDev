@@ -3,7 +3,7 @@
 This is what the Code i know 
 🐍 Python | 🌐 HTML | 🎨 CSS | 🚀 JavaScript | #️⃣ C# | 💻 C++ & ETC
 
-![Profile Views](https://count.moeyy.cn/get/@gelbooru?theme=moebooru)
+(https://count.moeyy.cn/get/@gelbooru?theme=moebooru)
 
 I'm a Coding with a passion for Hacking. I specialize in coding and tech and have experience with a range of technologies, including:
 
