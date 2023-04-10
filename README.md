@@ -18,7 +18,7 @@ Here are some projects that I have worked on recently:
 
 - [Discord Token stealer](https://github.com/ThunderboltDev/Thunder-Stealer) - A very overpowered stealer written in py
 
-[![Loading...](https://img.shields.io/badge/loading-50%25-yellow.svg)](https://github.com/username/repo)
+[![ThunderboltDev's GitHub stats](https://github-readme-stats.vercel.app/api?username=ThunderboltDev&show_icons=true&theme=dark)](https://github.com/ThunderboltDev)
 
 
 Feel free to check out my projects 
