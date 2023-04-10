@@ -17,6 +17,7 @@ I'm a Coding with a passion for Hacking. I specialize in coding and tech and hav
 Here are some projects that I have worked on recently:
 
 - [Discord Token stealer](https://github.com/ThunderboltDev/Thunder-Stealer) - A very overpowered stealer written in py
+- [Discord Embed Spammer](https://github.com/ThunderboltDev/Thunder-Webhook-Spammer) - Spams Webhook as a embed!
 
 [![ThunderboltDev's GitHub stats](https://github-readme-stats.vercel.app/api?username=ThunderboltDev&show_icons=true&theme=dark)](https://github.com/ThunderboltDev) 
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=ThunderboltDev&layout=compact&theme=dark)](https://github.com/ThunderboltDev)
