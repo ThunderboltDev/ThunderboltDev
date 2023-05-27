@@ -12,6 +12,13 @@ I'm a Coding with a passion for Hacking. I specialize in coding and tech and hav
 - ETC
 - ...
 
+## Things i do on my free time
+
+- Decompile Skids Code and revese Eng it 
+- I code random programs and upload it to my github!
+- test malware and have fun
+- many more shit
+
 ## Projects
 
 Here are some projects that I have worked on recently:
