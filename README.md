@@ -1,4 +1,4 @@
-# Hi there, I'm ThunderDev!
+# Hi there, I'm ByteKatana!
 
 This is what the Code i know 
 🐍 Python | 🌐 HTML | 🎨 CSS | 🚀 JavaScript | #️⃣ C# | 💻 C++ & ETC
