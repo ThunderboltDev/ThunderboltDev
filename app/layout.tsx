@@ -4,7 +4,6 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 const outfit = Outfit({
-  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
@@ -21,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${outfit.variable} antialiased`}>{children}</body>
+      <body className={`${outfit.className} antialiased`}>{children}</body>
     </html>
   );
 }
