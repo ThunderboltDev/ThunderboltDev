@@ -45,7 +45,7 @@
     @apply bg-background text-foreground;
     @apply absolute inset-0;
 
-    --grid-color: oklch(1 0 0 / 3%);
+    --grid-color: oklch(1 0 0 / 5%);
 
     background-size: 4rem 4rem;
     animation: grid-pulse 2s infinite;

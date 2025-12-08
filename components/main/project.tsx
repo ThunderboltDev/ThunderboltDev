@@ -51,7 +51,7 @@ export function Project({
                   transitionDelay: `${index * 50}ms`,
                 }}
                 className={cn(
-                  "bar -z-1 h-[16.7%] left-0 w-full opacity-0 group-hover:opacity-5 transition-opacity duration-500",
+                  "bar -z-1 h-[16.7%] left-0 w-full opacity-0 group-hover:opacity-10 transition-opacity duration-500",
                   index % 2 === 0 ? "bg-linear-to-r" : "bg-linear-to-l"
                 )}
               />
