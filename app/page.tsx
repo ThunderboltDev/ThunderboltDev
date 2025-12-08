@@ -23,7 +23,7 @@ import {
   SiTypescript,
 } from "react-icons/si";
 import { Project } from "@/components/main/project";
-import { Button } from "@/components/ui/button";
+import { ButtonLink } from "@/components/ui/button-link";
 
 const socials = [
   {
@@ -251,8 +251,15 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.8 }}
         >
-          <Button variant="accent">View My Work</Button>
-          <Button variant="outline">Get In Touch</Button>
+          <ButtonLink href="#projects" variant="accent">
+            View My Work
+          </ButtonLink>
+          <ButtonLink
+            href="mailto:thunderbolt3141592@gmail.com"
+            variant="outline"
+          >
+            Get In Touch
+          </ButtonLink>
         </motion.div>
 
         <motion.div

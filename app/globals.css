@@ -38,7 +38,7 @@
   }
 
   html {
-    @apply scroll-smooth scrollbar-4;
+    @apply scroll-smooth scroll-pt-12 scrollbar-4;
   }
 
   body {
