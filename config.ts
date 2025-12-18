@@ -1,1 +1,1 @@
-export const url = "https://thunderboltdev.site";
+export const url = "https://www.thunderboltdev.site";
