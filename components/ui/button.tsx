@@ -1,3 +1,5 @@
+"use client";
+
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
@@ -32,69 +34,6 @@ const buttonVariants = cva(
       size: "default",
     },
   }
-);
-
-const styles = (
-  <style jsx global>{`
-    @keyframes button-glow {
-      0%,
-      100% {
-        opacity: 0;
-      }
-      50% {
-        opacity: 1;
-      }
-    }
-
-    [data-slot="button"]::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      border-radius: inherit;
-      background: radial-gradient(
-        circle 100px at var(--mouse-x, 50%) var(--mouse-y, 50%),
-        oklch(1 0 0 / 10%),
-        transparent 100%
-      );
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      pointer-events: none;
-    }
-
-    [data-slot="button"]:hover::before {
-      opacity: 1;
-    }
-
-    [data-slot="button"]::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      border-radius: 50%;
-      background: oklch(1 0 0 / 10%);
-      transform: translate(-50%, -50%);
-      transition: width 0.6s ease, height 0.6s ease;
-      pointer-events: none;
-    }
-
-    [data-slot="button"] {
-      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    [data-slot="button"]:disabled {
-      transform: none !important;
-    }
-
-    [data-slot="button"]:disabled::before,
-    [data-slot="button"]:disabled::after {
-      display: none;
-    }
-  `}</style>
 );
 
 function Button({
@@ -141,19 +80,16 @@ function Button({
   };
 
   return (
-    <>
-      {styles}
-      <Comp
-        ref={asChild ? undefined : buttonRef}
-        data-slot="button"
-        className={cn(buttonVariants({ variant, size, className }))}
-        onMouseMove={asChild ? undefined : handleMouseMove}
-        onMouseLeave={asChild ? undefined : handleMouseLeave}
-        {...props}
-      >
-        {children}
-      </Comp>
-    </>
+    <Comp
+      ref={buttonRef}
+      data-slot="button"
+      className={cn(buttonVariants({ variant, size, className }))}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      {...props}
+    >
+      {children}
+    </Comp>
   );
 }
 

@@ -1,12 +1,10 @@
-import type { VariantProps } from "class-variance-authority";
 import Link from "next/link";
 import type { ComponentProps } from "react";
 
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 type ButtonLinkProps = ComponentProps<typeof Link> &
-  VariantProps<typeof buttonVariants> & {
+  ComponentProps<typeof Button> & {
     external?: boolean;
   };
 
@@ -22,12 +20,9 @@ function ButtonLink({
     : {};
 
   return (
-    <Link
-      data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...linkProps}
-      {...props}
-    />
+    <Button asChild variant={variant} size={size} className={className}>
+      <Link {...linkProps} {...props} />
+    </Button>
   );
 }
 

@@ -251,12 +251,17 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.8 }}
         >
-          <ButtonLink href="#projects" variant="accent">
+          <ButtonLink
+            href="#projects"
+            variant="accent"
+            data-umami-event="hero_button_clicked"
+          >
             View My Work
           </ButtonLink>
           <ButtonLink
             href="mailto:thunderbolt3141592@gmail.com"
             variant="outline"
+            data-umami-event="hero_contact_button_clicked"
           >
             Get In Touch
           </ButtonLink>
