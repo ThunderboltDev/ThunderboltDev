@@ -27,14 +27,14 @@ export function Project({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.5 }}
-      className="group card overflow-hidden p-0"
+      className="group card overflow-hidden p-0 md:min-w-xs"
     >
       <Link href={projectUrl} target="_blank" rel="noopener noreferrer">
         <div className="relative aspect-video w-full overflow-hidden">
           <Image
             src={imageUrl}
             alt={title}
-            className="object-cover transition-transform duration-500 group-hover:scale-110"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
             fill
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />

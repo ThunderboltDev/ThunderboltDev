@@ -336,13 +336,20 @@ export default function Home() {
       <section>
         <h2 id="projects">My Projects</h2>
 
-        <div className="mt-12 grid gap-8 lg:grid-cols-1 max-w-lg mx-auto">
+        <div className="mt-12 flex gap-8 flex-col md:flex-row">
           <Project
             title="Resound"
             description="Resound is an support platform for websites that combines website widget, real time conversations and team tools powered by AI."
             tags={["Next.js", "TypeScript", "Convex", "Turborepo"]}
-            projectUrl="https://resound.thunderboltdev.site"
-            imageUrl="/thunderbolt.png"
+            projectUrl="https://resound.thunderboltdev.site?utm_source=portfolio&utm_medium=project&utm_campaign=resound"
+            imageUrl="/projects/resound.webp"
+          />
+          <Project
+            title="PDF Pal"
+            description="An AI powered web platform that helps you analyze and understand your PDFs instantly. Chat, summarize and get valuable insights effortlessly!"
+            tags={["Next.js", "TypeScript", "Supabase", "tRPC"]}
+            projectUrl="https://pdfpal.thunderboltdev.site?utm_source=portfolio&utm_medium=project&utm_campaign=pdfpal"
+            imageUrl="/projects/pdf-pal.webp"
           />
         </div>
       </section>
