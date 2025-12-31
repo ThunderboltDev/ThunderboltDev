@@ -19,7 +19,7 @@ const buttonVariants = cva(
           "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+        ghost: "hover:text-accent shadow-none hover:shadow-none",
       },
       size: {
         "default": "h-9 px-4 py-2 has-[>svg]:px-3",
@@ -42,16 +42,18 @@ function Button({
   variant,
   size,
   asChild = false,
+  disableAnimation = true,
   ...props
 }: ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
+    disableAnimation?: boolean;
   }) {
   const Comp = asChild ? Slot : "button";
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const handleMouseMove = (e: MouseEvent<HTMLButtonElement>) => {
-    if (!buttonRef.current || props.disabled) return;
+    if (!buttonRef.current || props.disabled || disableAnimation) return;
 
     const rect = buttonRef.current.getBoundingClientRect();
 
@@ -75,7 +77,7 @@ function Button({
   };
 
   const handleMouseLeave = () => {
-    if (!buttonRef.current) return;
+    if (!buttonRef.current || disableAnimation) return;
     buttonRef.current.style.transform = "translate(0, 0) scale(1)";
   };
 
@@ -83,6 +85,7 @@ function Button({
     <Comp
       ref={buttonRef}
       data-slot="button"
+      data-disable-animation={disableAnimation}
       className={cn(buttonVariants({ variant, size, className }))}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}

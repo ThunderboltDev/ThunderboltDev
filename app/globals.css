@@ -9,7 +9,7 @@
   --color-secondary-foreground: oklch(0.96 0 0);
 
   --color-muted: oklch(0.325 0 0);
-  --color-muted-foreground: oklch(0.7 0 0);
+  --color-muted-foreground: oklch(0.75 0 0);
 
   --color-accent: oklch(0.968 0.211 109.77);
   --color-accent-foreground: oklch(0.205 0 0);
@@ -23,6 +23,8 @@
   --wrapper-md: 36rem;
   --wrapper-lg: 48rem;
   --wrapper-xl: 60rem;
+  --wrapper-2xl: 80rem;
+  --wrapper-3xl: 100rem;
 
   --radius-sm: 0.25rem;
   --radius-md: 0.375rem;
@@ -38,7 +40,7 @@
   }
 
   html {
-    @apply scroll-smooth scroll-pt-12 scrollbar-4;
+    @apply scroll-smooth scroll-pt-8 scrollbar-4;
   }
 
   body {
@@ -57,9 +59,17 @@
       linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
   }
 
+  a {
+    @apply focus-visible:outline-accent/50 focus-visible:outline-1;
+  }
+
   p {
     @apply mx-auto text-pretty text-muted-foreground;
     max-width: min(100vw - 1.8rem, 50ch);
+  }
+
+  article p {
+    @apply max-w-full m-0;
   }
 
   h1,
@@ -72,38 +82,44 @@
   }
 
   h1 {
-    @apply text-6xl md:text-7xl;
+    @apply text-5xl md:text-7xl;
     @apply font-bold tracking-tight leading-tight;
   }
 
   h2 {
-    @apply text-4xl md:text-5xl;
+    @apply text-2xl md:text-3xl;
     @apply font-bold tracking-tight leading-tight;
   }
 
   h3 {
-    @apply text-3xl md:text-4xl;
+    @apply text-xl md:text-2xl;
     @apply font-bold tracking-tight leading-tight;
   }
 
   h4 {
-    @apply text-2xl md:text-3xl;
+    @apply text-lg md:text-xl;
     @apply font-semibold tracking-tight leading-snug;
   }
 
   h5 {
-    @apply text-xl md:text-2xl;
+    @apply text-base md:text-lg;
     @apply font-semibold tracking-tight leading-snug;
   }
 
   h6 {
-    @apply text-lg md:text-xl;
+    @apply text-sm md:text-base;
     @apply font-semibold tracking-tight leading-snug;
   }
 
   section {
     @apply py-12 wrapper-xl;
   }
+}
+
+@utility link {
+  @apply transition-colors duration-250 ease-linear;
+  @apply underline underline-offset-2;
+  @apply hover:text-accent;
 }
 
 @utility card {
@@ -118,7 +134,7 @@
 }
 
 @utility wrapper-* {
-  @apply mx-auto w-[calc(100%-1.8rem)] xs:w-[calc(100%-4rem)] md:w-[calc(100%-6rem)] lg:w-[calc(100%-8rem)];
+  @apply mx-auto w-[calc(100%-1.8rem)] xs:w-[calc(100%-4rem)] md:w-[calc(100%-6rem)];
   max-width: --value(--wrapper- *, integer);
 }
 
@@ -183,7 +199,13 @@
   }
 
   [data-slot="button"]:disabled::before,
-  [data-slot="button"]:disabled::after {
+  [data-slot="button"]:disabled::after,
+  [data-slot="button"][data-disable-animation="true"]::before,
+  [data-slot="button"][data-disable-animation="true"]::after {
     display: none;
+  }
+
+  [data-slot="button"][data-disable-animation="true"] {
+    transform: none !important;
   }
 }

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
-import type { ReactNode } from "react";
-import "./globals.css";
 import Script from "next/script";
+import type { ReactNode } from "react";
+import { Footer } from "@/components/main/footer";
+import "./globals.css";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -21,7 +22,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${outfit.className}`}>{children}</body>
+      <head>
+        <meta
+          name="impact-site-verification"
+          content="78cae837-d524-4ced-bb12-bd561ad9acb5"
+        />
+      </head>
+      <body className={`${outfit.className}`}>
+        {children}
+        <Footer />
+      </body>
       <Script
         defer
         src="https://cloud.umami.is/script.js"

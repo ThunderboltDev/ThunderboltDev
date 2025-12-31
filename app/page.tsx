@@ -23,7 +23,7 @@ import {
   SiTypescript,
 } from "react-icons/si";
 import { Project } from "@/components/main/project";
-import { ButtonLink } from "@/components/ui/button-link";
+import { LinkButton } from "@/components/ui/link-button";
 
 const socials = [
   {
@@ -251,20 +251,22 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.8 }}
         >
-          <ButtonLink
+          <LinkButton
             href="#projects"
             variant="accent"
             data-umami-event="hero_button_clicked"
+            disableAnimation={false}
           >
             View My Work
-          </ButtonLink>
-          <ButtonLink
+          </LinkButton>
+          <LinkButton
             href="mailto:thunderbolt3141592@gmail.com"
             variant="outline"
             data-umami-event="hero_contact_button_clicked"
+            disableAnimation={false}
           >
             Get In Touch
-          </ButtonLink>
+          </LinkButton>
         </motion.div>
 
         <motion.div
@@ -353,40 +355,6 @@ export default function Home() {
           />
         </div>
       </section>
-
-      <footer className="border-t border-border px-6 py-12 bg-secondary/50 backdrop-blur-sm">
-        <div className="mx-auto max-w-6xl">
-          <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
-            <div className="text-center md:text-left">
-              <p className="text-lg font-semibold text-foreground">
-                Thunderbolt
-              </p>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Building the web, one line of code at a time.
-              </p>
-            </div>
-
-            <div className="flex gap-6">
-              {[
-                { name: "GitHub", href: "https://github.com/ThunderboltDev" },
-                { name: "Twitter", href: "https://x.com/Thunderbolt3141" },
-              ].map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-muted-foreground transition-colors hover:text-accent"
-                >
-                  {link.name}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-8 border-t border-border pt-8 text-center text-sm text-muted-foreground">
-            <p>© 2025 Thunderbolt. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
     </main>
   );
 }

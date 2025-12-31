@@ -8,10 +8,11 @@ type ButtonLinkProps = ComponentProps<typeof Link> &
     external?: boolean;
   };
 
-function ButtonLink({
+function LinkButton({
   className,
   variant,
   size,
+  disableAnimation,
   external = false,
   ...props
 }: ButtonLinkProps) {
@@ -20,10 +21,16 @@ function ButtonLink({
     : {};
 
   return (
-    <Button asChild variant={variant} size={size} className={className}>
+    <Button
+      asChild
+      size={size}
+      variant={variant}
+      className={className}
+      disableAnimation={disableAnimation}
+    >
       <Link {...linkProps} {...props} />
     </Button>
   );
 }
 
-export { ButtonLink };
+export { LinkButton };
