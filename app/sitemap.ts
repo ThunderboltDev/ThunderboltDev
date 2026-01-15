@@ -8,6 +8,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
       changefreq: "monthly",
     },
+    {
+      path: "/blog",
+      priority: 1.0,
+      changefreq: "monthly",
+    },
   ];
 
   return pages.map((page) => ({
