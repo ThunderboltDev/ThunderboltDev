@@ -18,7 +18,7 @@ export function Navbar() {
           className="flex items-center gap-3 transition-opacity hover:opacity-80"
         >
           <Image
-            src="/thunderbolt.png"
+            src="/logo.webp"
             alt="Thunderbolt Logo"
             width={512}
             height={512}

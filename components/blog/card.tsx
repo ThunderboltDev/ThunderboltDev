@@ -1,11 +1,12 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { formatDate } from "@/lib/date";
 import type { Post } from "@/lib/posts";
 
 export function BlogCard({ post }: { post: Post }) {
   return (
     <Link
-      href={`/blog/${post.slug}`}
+      href={`/blog/${post.category}/${post.slug}`}
       className="card group flex flex-col justify-between space-y-4 transition-all hover:-translate-y-1 hover:border-accent/50"
     >
       <div className="space-y-2">
@@ -36,12 +37,8 @@ export function BlogCard({ post }: { post: Post }) {
         )}
       </div>
       <div className="flex items-center gap-2 text-xs text-muted-foreground">
-        <time dateTime={post.data.date}>
-          {new Date(post.data.date).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
+        <time dateTime={post.data.date.toISOString()}>
+          {formatDate(post.data.date)}
         </time>
         <span>•</span>
         <span>{post.data.readingTime} min read</span>

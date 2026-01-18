@@ -3,19 +3,30 @@ import path from "node:path";
 import matter from "gray-matter";
 import { cache } from "react";
 import readingTime from "reading-time";
+import { z } from "zod";
+import { categories } from "@/lib/constants";
 
 const BLOG_PATH = path.join(process.cwd(), "blog");
 
+export const PostFrontmatterSchema = z.object({
+  title: z.string().min(10).max(70),
+  description: z.string().min(50).max(250),
+  tags: z.array(z.string()).min(2).max(10).default([]),
+  keywords: z.array(z.string()).min(1).max(10).default([]),
+  date: z.date().optional(),
+  lastModified: z.date().optional(),
+  category: z.enum(categories),
+});
+
+export type PostFrontmatter = z.infer<typeof PostFrontmatterSchema>;
+
 export interface Post {
   slug: string;
-  data: {
-    title: string;
-    description: string;
-    tags: string[];
-    keywords: string[];
+  category: string;
+  data: PostFrontmatter & {
+    date: Date;
     readingTime: number;
-    date: string;
-    lastModified?: string;
+    lastModified: Date | undefined;
   };
   content: string;
 }
@@ -45,31 +56,39 @@ async function getPostFromPath(filePath: string, slug?: string): Promise<Post> {
   const content = await fs.readFile(filePath, "utf-8");
   const stats = await fs.stat(filePath);
 
-  const { data, content: mdxContent } = matter(content);
+  const { data: rawData, content: mdxContent } = matter(content);
 
-  const date = data.date || stats.birthtime.toISOString();
-  const lastModified = data.lastModified || stats.mtime.toISOString();
+  const relativePath = path.relative(BLOG_PATH, filePath);
+  const pathParts = relativePath.split(path.sep);
+  const folderCategory = pathParts.length > 1 ? pathParts[0] : undefined;
+
+  const validatedData = PostFrontmatterSchema.parse({
+    ...rawData,
+    category: rawData.category || folderCategory,
+  });
+
+  const date = validatedData.date || stats.birthtime;
+  const lastModified = validatedData.lastModified || stats.mtime;
 
   const differenceInDays =
-    (new Date(lastModified).getTime() - new Date(date).getTime()) /
-    (1000 * 60 * 60 * 24);
+    (lastModified.getTime() - date.getTime()) / (1000 * 60 * 60 * 24);
 
   const time = readingTime(content);
+
+  const category = validatedData.category || "news";
 
   return {
     slug:
       slug ||
       path
-        .relative(BLOG_PATH, filePath)
+        .relative(path.join(BLOG_PATH, category), filePath)
         .replace(/\.mdx$/, "")
         .replace(/\\/g, "/"),
+    category,
     data: {
-      title: data.title,
-      description: data.description,
+      ...validatedData,
       date,
       lastModified: differenceInDays > 3 ? lastModified : undefined,
-      tags: data.tags || [],
-      keywords: data.keywords || [],
       readingTime: Math.ceil(time.minutes),
     },
     content: mdxContent,
@@ -87,10 +106,10 @@ export const getAllPosts = cache(async function getAllPosts(): Promise<Post[]> {
 });
 
 export const getPost = cache(async function getPost(
+  category: string,
   slug: string
 ): Promise<Post | null> {
-  const normalizedSlug = slug.replace(/\//g, path.sep);
-  const filePath = path.join(BLOG_PATH, `${normalizedSlug}.mdx`);
+  const filePath = path.join(BLOG_PATH, category, `${slug}.mdx`);
 
   try {
     return await getPostFromPath(filePath, slug);
@@ -101,7 +120,7 @@ export const getPost = cache(async function getPost(
 
 export async function getRelatedPosts(
   currentPost: Post,
-  limit = 3
+  limit = 5
 ): Promise<Post[]> {
   const allPosts = await getAllPosts();
 
@@ -117,4 +136,26 @@ export async function getRelatedPosts(
     .sort((a, b) => b.score - a.score)
     .slice(0, limit)
     .map((item) => item.post);
+}
+
+export async function getRecentPosts(
+  category?: string,
+  limit = 10
+): Promise<Post[]> {
+  const allPosts = await getAllPosts();
+
+  return allPosts
+    .filter((post) => {
+      if (category) {
+        return post.data.category === category;
+      }
+
+      return true;
+    })
+    .sort((a, b) => {
+      const dateA = new Date(a.data.date).getTime();
+      const dateB = new Date(b.data.date).getTime();
+      return dateB - dateA;
+    })
+    .slice(0, limit);
 }

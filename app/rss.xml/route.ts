@@ -1,5 +1,5 @@
 import { Feed } from "feed";
-import { url } from "@/config";
+import { socials, url } from "@/config";
 import { getAllPosts } from "@/lib/posts";
 
 export async function GET() {
@@ -8,47 +8,56 @@ export async function GET() {
   const feed = new Feed({
     title: "Thunderbolt Blog",
     description:
-      "Technical articles, product updates, and insights on web development and SaaS.",
+      "Insights, thoughts, and tutorials on web development, design, and building products.",
     id: url,
     link: url,
     language: "en",
-    image: `${url}/thunderbolt.png`,
+    image: `${url}/logo.webp`,
     favicon: `${url}/favicon.ico`,
     copyright: `All rights reserved ${new Date().getFullYear()}, Thunderbolt`,
     updated: new Date(posts[0].data.date),
     generator: "Feed for Node.js",
     feedLinks: {
-      rss2: `${url}/blog/rss.xml`,
+      rss2: `${url}/rss.xml`,
     },
     author: {
       name: "Thunderbolt",
-      email: "thunderbolt3141592@gmail.com",
+      email: socials.email,
       link: url,
     },
   });
 
-  for (const post of posts) {
+  const sortedPosts = posts.sort((a, b) => {
+    return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+  });
+
+  for (const post of sortedPosts) {
     feed.addItem({
       title: post.data.title,
-      id: `${url}/blog/${post.slug}`,
-      link: `${url}/blog/${post.slug}`,
+      id: `${url}/blog/${post.category}/${post.slug}`,
+      link: `${url}/blog/${post.category}/${post.slug}`,
       description: post.data.description,
       content: post.content,
       author: [
         {
           name: "Thunderbolt",
-          email: "thunderbolt3141592@gmail.com",
+          email: socials.email,
           link: url,
         },
       ],
       date: new Date(post.data.date),
+      category: [
+        {
+          name: post.data.category,
+        },
+      ],
     });
   }
 
   return new Response(feed.rss2(), {
     headers: {
-      "Content-Type": "application/xml",
-      "Cache-Control": "s-maxage=3600, stale-while-revalidate",
+      "Content-Type": "application/xml; charset=utf-8",
+      "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
     },
   });
 }

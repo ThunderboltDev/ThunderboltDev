@@ -1,56 +1,49 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlogCard } from "@/components/blog/card";
+import {
+  getBlogPostBreadcrumbJsonLd,
+  getBlogPostJsonLd,
+  JsonLd,
+} from "@/components/blog/jsonld";
 import { CustomMDX } from "@/components/blog/mdx";
+import { generateBlogMetadata } from "@/components/blog/metadata";
 import { TableOfContents } from "@/components/blog/toc";
-import { url } from "@/config";
+import { formatDate } from "@/lib/date";
 import { getAllPosts, getPost, getRelatedPosts } from "@/lib/posts";
 
 interface Props {
   params: Promise<{
+    category: string;
     slug: string;
   }>;
 }
 
 export async function generateStaticParams() {
-  return (await getAllPosts()).map((post) => ({ slug: post.slug }));
+  const posts = await getAllPosts();
+
+  return posts.map((post) => ({
+    category: post.category,
+    slug: post.slug,
+  }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
+  const { category, slug } = await params;
 
-  const post = await getPost(slug);
+  const post = await getPost(category, slug);
 
   if (!post) {
     return {};
   }
 
-  const { data } = post;
-
-  return {
-    title: data.title,
-    description: data.description,
-    openGraph: {
-      title: data.title,
-      description: data.description,
-      type: "article",
-      publishedTime: data.date,
-      modifiedTime: data.lastModified,
-      tags: data.tags,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: data.title,
-      description: data.description,
-    },
-    keywords: data.keywords,
-  };
+  return generateBlogMetadata(post);
 }
 
 export default async function BlogPost({ params }: Props) {
-  const { slug } = await params;
+  const { category, slug } = await params;
 
-  const post = await getPost(slug);
+  const post = await getPost(category, slug);
 
   if (!post) {
     notFound();
@@ -60,6 +53,9 @@ export default async function BlogPost({ params }: Props) {
 
   return (
     <article className="wrapper-3xl py-6 lg:py-10">
+      <JsonLd data={getBlogPostJsonLd(post)} />
+      <JsonLd data={getBlogPostBreadcrumbJsonLd(post)} />
+
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-[250px_1fr_300px]">
         <aside className="hidden lg:block">
           <div className="sticky top-20">
@@ -73,26 +69,15 @@ export default async function BlogPost({ params }: Props) {
           <div className="space-y-1 mt-4 mb-6 text-sm text-muted-foreground">
             <div>
               <span>Published: </span>
-              <time dateTime={post.data.date}>
-                {new Date(post.data.date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
+              <time dateTime={post.data.date.toISOString()}>
+                {formatDate(post.data.date)}
               </time>
             </div>
             {post.data.lastModified && (
               <div>
                 <span>Updated: </span>
-                <time dateTime={post.data.lastModified}>
-                  {new Date(post.data.lastModified).toLocaleDateString(
-                    "en-US",
-                    {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    }
-                  )}
+                <time dateTime={post.data.lastModified.toISOString()}>
+                  {formatDate(post.data.lastModified)}
                 </time>
               </div>
             )}
@@ -115,33 +100,6 @@ export default async function BlogPost({ params }: Props) {
           </aside>
         )}
       </div>
-
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: Structured Data
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "headline": post.data.title,
-            "description": post.data.description,
-            "datePublished": post.data.date,
-            "dateModified": post.data.lastModified,
-            "author": {
-              "@type": "Person",
-              "name": "Thunderbolt",
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "Thunderbolt",
-              "logo": {
-                "@type": "ImageObject",
-                "url": `${url}/thunderbolt.png`,
-              },
-            },
-          }),
-        }}
-      />
     </article>
   );
 }

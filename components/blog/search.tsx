@@ -9,9 +9,10 @@ import {
   KBarSearch,
   useMatches,
 } from "kbar";
-import { Book, Home, Newspaper, Search as Searchicon } from "lucide-react";
+import { Book, Home, Newspaper, SearchIcon, Tag } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { type ReactNode, useMemo } from "react";
+import { categoryMetadata } from "@/components/blog/metadata";
 import { Kbd } from "@/components/ui/kbd";
 import type { Post } from "@/lib/posts";
 import { cn } from "@/lib/utils";
@@ -44,14 +45,25 @@ export function SearchProvider({ children, posts }: SearchProviderProps) {
         perform: () => router.push("/blog"),
         icon: <Book />,
       },
+      ...Object.entries(categoryMetadata).map(([category, metadata]) => ({
+        id: `category-${category}`,
+        name: metadata.title,
+        subtitle: metadata.description,
+        keywords: `category ${category} ${metadata.title} ${metadata.description}`,
+        perform: () => router.push(`/blog/${category}`),
+        parent: "blog",
+        icon: <Tag />,
+        section: "Categories",
+      })),
       ...posts.map((post) => ({
         id: post.slug,
         name: post.data.title,
         subtitle: post.data.description,
         keywords: `${post.data.description} ${post.data.tags?.join(" ") ?? ""}`,
-        perform: () => router.push(`/blog/${post.slug}`),
+        perform: () => router.push(`/blog/${post.category}/${post.slug}`),
         parent: "blog",
         icon: <Newspaper />,
+        section: "Blogs",
       })),
     ],
     [posts, router]
@@ -63,7 +75,7 @@ export function SearchProvider({ children, posts }: SearchProviderProps) {
         <KBarPositioner className="z-50 bg-background/50 backdrop-blur-xs">
           <KBarAnimator className="w-full max-w-[600px] overflow-hidden rounded-lg border border-border bg-background shadow-2xl ring-1 ring-black/5">
             <div className="flex items-center border-b border-border px-4">
-              <Searchicon className="size-5 text-muted-foreground" />
+              <SearchIcon className="size-5 text-muted-foreground" />
               <KBarSearch
                 defaultPlaceholder="Search posts..."
                 className="w-full bg-transparent px-3 py-4 text-base outline-none placeholder:text-muted-foreground"
@@ -97,10 +109,9 @@ function SearchResults() {
   return (
     <KBarResults
       items={results}
-      maxHeight={500}
       onRender={({ item, active }) =>
         typeof item === "string" ? (
-          <div className="mx-2 p-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+          <div className="mx-1 p-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
             {item}
           </div>
         ) : (
