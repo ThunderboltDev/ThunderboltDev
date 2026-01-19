@@ -6,8 +6,9 @@ import {
   Cog,
   DraftingCompass,
   LayoutDashboard,
-  LayoutList,
+  Search,
   Server,
+  Zap,
 } from "lucide-react";
 import Image from "next/image";
 import { FaEnvelope, FaGithub } from "react-icons/fa";
@@ -24,6 +25,7 @@ import {
 } from "react-icons/si";
 import { Project } from "@/components/main/project";
 import { LinkButton } from "@/components/ui/link-button";
+import { cn } from "@/lib/utils";
 
 const socials = [
   {
@@ -81,7 +83,7 @@ const skills = [
     ],
   },
   {
-    name: "Tools",
+    name: "DevOps",
     icon: Cog,
     skills: [
       {
@@ -89,7 +91,7 @@ const skills = [
         icon: SiGit,
       },
       {
-        name: "GitHub",
+        name: "GitHub Actions",
         icon: SiGithub,
       },
       {
@@ -99,7 +101,7 @@ const skills = [
     ],
   },
   {
-    name: "Design",
+    name: "Optimization",
     icon: DraftingCompass,
     skills: [
       {
@@ -107,8 +109,12 @@ const skills = [
         icon: LayoutDashboard,
       },
       {
-        name: "UI/UX",
-        icon: LayoutList,
+        name: "Performance",
+        icon: Zap,
+      },
+      {
+        name: "SEO",
+        icon: Search,
       },
     ],
   },
@@ -148,77 +154,69 @@ const getDuration = (index: number, count: number) => {
   return distance * baseDuration;
 };
 
+const AnimatedBars = ({
+  count,
+  maxHeight,
+  className = "",
+  barClassName = "",
+}: {
+  count: number;
+  maxHeight: number;
+  className?: string;
+  barClassName?: string;
+}) => (
+  <div className={cn("absolute -z-1 top-[100vh] w-full flex-row", className)}>
+    {Array(count)
+      .fill(0)
+      .map((_, index) => (
+        <motion.div
+          key={crypto.randomUUID()}
+          className={cn("bar relative w-[10vw]", barClassName)}
+          initial={{ height: 0 }}
+          animate={{ height: getBarHeight(index, count, 10, maxHeight) }}
+          transition={{
+            duration: getDuration(index, count),
+            delay: getCenterDelay(index, count),
+            ease: "easeIn",
+          }}
+        />
+      ))}
+  </div>
+);
+
 export default function Home() {
   return (
     <main className="relative">
-      <div className="md:hidden absolute -z-1 top-[100vh] left-0 w-full flex flex-row">
-        {Array(10)
-          .fill(0)
-          .map((_, index) => (
-            <motion.div
-              key={crypto.randomUUID()}
-              className="bar relative w-[10vw] -translate-y-full origin-bottom"
-              initial={{ height: 0 }}
-              animate={{ height: getBarHeight(index, 10, 10, 300) }}
-              transition={{
-                duration: getDuration(index, 10),
-                delay: getCenterDelay(index, 10),
-                ease: "easeIn",
-              }}
-            />
-          ))}
-      </div>
-      <div className="md:hidden absolute -z-1 top-[100vh] right-0 w-full flex flex-row">
-        {Array(10)
-          .fill(0)
-          .map((_, index) => (
-            <motion.div
-              key={crypto.randomUUID()}
-              className="bar relative w-[10vw] bg-linear-to-b -translate-y-[1px]"
-              initial={{ height: 0 }}
-              animate={{ height: getBarHeight(index, 10, 10, 100) }}
-              transition={{
-                duration: getDuration(index, 10),
-                delay: getCenterDelay(index, 10),
-                ease: "easeIn",
-              }}
-            />
-          ))}
-      </div>
-      <div className="hidden md:flex absolute -z-1 top-[100vh] left-0 w-full flex-row">
-        {Array(16)
-          .fill(0)
-          .map((_, index) => (
-            <motion.div
-              key={crypto.randomUUID()}
-              className="bar relative w-[10vw] -translate-y-full origin-bottom"
-              initial={{ height: 0 }}
-              animate={{ height: getBarHeight(index, 16, 10, 400) }}
-              transition={{
-                duration: getDuration(index, 16),
-                delay: getCenterDelay(index, 16),
-                ease: "easeIn",
-              }}
-            />
-          ))}
-      </div>
-      <div className="hidden md:flex absolute -z-1 top-[100vh] right-0 w-full flex-row">
-        {Array(16)
-          .fill(0)
-          .map((_, index) => (
-            <motion.div
-              key={crypto.randomUUID()}
-              className="bar relative w-[10vw] bg-linear-to-b -translate-y-[1px]"
-              initial={{ height: 0 }}
-              animate={{ height: getBarHeight(index, 16, 10, 150) }}
-              transition={{
-                duration: getDuration(index, 16),
-                delay: getCenterDelay(index, 16),
-                ease: "easeIn",
-              }}
-            />
-          ))}
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="absolute -z-1 top-0 left-1/2 -translate-y-1/2 -translate-x-1/2 size-[min(60vw,28rem)] bg-radial from-accent/15 to-transparent blur-3xl rounded-full"
+      />
+      <AnimatedBars
+        count={10}
+        maxHeight={300}
+        className="flex md:hidden left-0"
+        barClassName="-translate-y-full origin-bottom"
+      />
+      <AnimatedBars
+        count={10}
+        maxHeight={100}
+        className="flex md:hidden right-0"
+        barClassName="bg-linear-to-b -translate-y-px"
+      />
+      <AnimatedBars
+        count={16}
+        maxHeight={400}
+        className="hidden md:flex left-0"
+        barClassName="-translate-y-full origin-bottom"
+      />
+      <AnimatedBars
+        count={16}
+        maxHeight={150}
+        className="hidden md:flex right-0"
+        barClassName="bg-linear-to-b -translate-y-pxs"
+      />
       <motion.section
         className="pt-20 sm:pt-32 h-screen"
         initial={{ opacity: 0, y: 20 }}
@@ -285,10 +283,12 @@ export default function Home() {
               transition={{ delay: 1 + index * 0.1, duration: 0.3 }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
+              aria-label={social.name}
             >
               <span className="text-sm font-semibold text-muted-foreground transition-colors group-hover:text-accent">
                 <social.icon className="size-5" />
               </span>
+              <span className="sr-only">{social.name}</span>
             </motion.a>
           ))}
         </motion.div>
@@ -296,38 +296,54 @@ export default function Home() {
 
       <section className="pt-24 max-w-3xl mx-auto">
         <h2>Skills & Technologies</h2>
+        <p className="text-center mt-2">
+          These are the technologies and frameworks that I use to bring ideas to
+          life.
+        </p>
         <div className="mt-16 grid gap-6 sm:grid-cols-2">
           {skills.map((item, index) => (
             <motion.div
               key={item.name}
-              className="card bg-linear-to-r from-secondary/25 to-secondary/25 hover:to-accent/25"
+              className="card group relative hover:border-accent/25 hover:bg-muted/25 hover:shadow-accent/5"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
+              transition={{ delay: index * 0.1, duration: 0.25 }}
+              whileHover={{ y: -4 }}
             >
+              <div className="absolute -top-px left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-250 ease-out group-hover:opacity-100" />
+              <div className="absolute -top-px left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-250 ease-out group-hover:opacity-100 blur-xs" />
+              <div className="absolute -bottom-px left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-250 ease-out group-hover:opacity-100" />
+              <div className="absolute -bottom-px left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-250 ease-out group-hover:opacity-100 blur-xs" />
               <div className="flex items-center gap-3">
-                <item.icon className="size-10 text-accent bg-accent/10 p-2 rounded-sm" />
+                <item.icon className="size-10 text-accent bg-accent/5 group-hover:bg-accent/10 p-2 rounded-sm transition-colors duration-250 ease-out" />
                 <h4>{item.name}</h4>
               </div>
-              <div className="mt-6 flex flex-row flex-wrap gap-8">
-                {item.skills.map((skill) => (
-                  <div key={skill.name} className="flex items-center gap-2">
+              <div className="mt-6 space-y-3">
+                {item.skills.map((skill, skillIndex) => (
+                  <motion.div
+                    key={skill.name}
+                    className="flex items-center gap-3 rounded-md bg-background px-3 py-2 transition-colors duration-250 ease-out"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 + skillIndex * 0.05 }}
+                  >
                     {typeof skill.icon === "string" ? (
                       <Image
+                        width={20}
+                        height={20}
                         src={skill.icon}
-                        width={24}
-                        height={24}
                         alt={skill.name}
-                        className="size-6 brightness-75 pointer-events-none select-none"
+                        className="size-5 pointer-events-none select-none"
                       />
                     ) : (
-                      <skill.icon className="size-6 brightness-75" />
+                      <skill.icon className="size-5 text-muted-foreground" />
                     )}
-                    <span className="text-base brightness-75">
+                    <span className="text-sm font-medium text-muted-foreground">
                       {skill.name}
                     </span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>
@@ -337,7 +353,6 @@ export default function Home() {
 
       <section>
         <h2 id="projects">My Projects</h2>
-
         <div className="mt-12 flex gap-8 flex-col md:flex-row">
           <Project
             title="Resound"

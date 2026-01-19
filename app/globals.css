@@ -87,27 +87,27 @@
   }
 
   h2 {
-    @apply text-2xl md:text-3xl;
+    @apply text-3xl md:text-4xl;
     @apply font-bold tracking-tight leading-tight;
   }
 
   h3 {
-    @apply text-xl md:text-2xl;
+    @apply text-2xl md:text-3xl;
     @apply font-bold tracking-tight leading-tight;
   }
 
   h4 {
-    @apply text-lg md:text-xl;
+    @apply text-xl md:text-2xl;
     @apply font-semibold tracking-tight leading-snug;
   }
 
   h5 {
-    @apply text-base md:text-lg;
+    @apply text-lg md:text-xl;
     @apply font-semibold tracking-tight leading-snug;
   }
 
   h6 {
-    @apply text-sm md:text-base;
+    @apply text-base md:text-lg;
     @apply font-semibold tracking-tight leading-snug;
   }
 
@@ -116,21 +116,129 @@
   }
 }
 
-@utility link {
-  @apply transition-colors duration-250 ease-linear;
-  @apply underline underline-offset-2;
-  @apply hover:text-accent;
+@keyframes bg-size {
+  from {
+    background-position: 100% 100%;
+  }
+
+  to {
+    background-position: 0% 0%;
+  }
 }
 
-@utility card {
-  @apply bg-secondary/25 p-6 rounded-md backdrop-blur-sm;
-  @apply border border-border shadow-lg hover:shadow-xl;
-  @apply transition-colors duration-200 ease-out;
+@utility image {
+  background-size: 300% 300% !important;
+
+  background: linear-gradient(
+    to bottom right,
+    var(--color-secondary) 45%,
+    var(--color-muted) 50%,
+    var(--color-secondary) 55%
+  );
+
+  animation: bg-size 1.5s infinite ease-in-out;
+}
+
+@utility link {
+  @apply transition-colors duration-250 ease-out;
+  @apply underline underline-offset-2;
+  @apply hover:text-accent;
 }
 
 @utility bar {
   @apply absolute;
   @apply bg-linear-to-t from-accent to-accent/0;
+}
+
+@utility card {
+  @apply bg-secondary/50 p-6 rounded-md backdrop-blur-sm;
+  @apply border border-border shadow-lg;
+  @apply transition-all duration-250 ease-out;
+}
+
+@property --card-glow-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes card-glow-rotate {
+  from {
+    --card-glow-angle: 0deg;
+  }
+
+  to {
+    --card-glow-angle: 360deg;
+  }
+}
+
+@property --card-glow-l {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0.2;
+}
+
+@property --card-glow-c {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --card-glow-h {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --card-glow-accent-l {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0.968;
+}
+
+@property --card-glow-accent-c {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0.211;
+}
+
+@property --card-glow-accent-h {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 109.77;
+}
+
+@utility card-glow {
+  @apply rounded-[7px];
+  @apply absolute -z-1 inset-0;
+
+  background: conic-gradient(
+    from var(--card-glow-angle),
+    oklch(var(--card-glow-l) var(--card-glow-c) var(--card-glow-h)) 45%,
+    oklch(
+        var(--card-glow-accent-l) var(--card-glow-accent-c)
+          var(--card-glow-accent-h)
+      )
+      50%,
+    oklch(var(--card-glow-l) var(--card-glow-c) var(--card-glow-h)) 55%
+  );
+
+  transition: --card-glow-l 250ms ease-in-out, --card-glow-c 250ms ease-in-out,
+    --card-glow-h 250ms ease-in-out, --card-glow-accent-l 250ms ease-in-out,
+    --card-glow-accent-c 250ms ease-in-out,
+    --card-glow-accent-h 250ms ease-in-out, filter 250ms ease-in-out;
+
+  animation: card-glow-rotate 6s infinite linear;
+}
+
+@utility card-glow-hover {
+  --card-glow-l: 0.4;
+  --card-glow-c: 0;
+  --card-glow-h: 0;
+
+  --card-glow-hover-l: 1;
+  --card-glow-hover-c: 0.5;
+  --card-glow-hover-h: 109.77;
 }
 
 @utility wrapper-* {
