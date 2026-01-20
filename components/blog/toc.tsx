@@ -61,7 +61,7 @@ export function TableOfContents({
 
   return (
     <nav className={cn("space-y-2 max-w-md mx-auto", className)}>
-      <Accordion type="single" collapsible={collapsible}>
+      <Accordion>
         <AccordionItem value="toc">
           <AccordionTrigger className="tracking-wider border border-border/25">
             TABLE OF CONTENTS

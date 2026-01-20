@@ -22,14 +22,13 @@ function LinkButton({
 
   return (
     <Button
-      asChild
+      nativeButton={false}
+      render={<Link {...linkProps} {...props} />}
       size={size}
       variant={variant}
       className={className}
       disableAnimation={disableAnimation}
-    >
-      <Link {...linkProps} {...props} />
-    </Button>
+    />
   );
 }
 
