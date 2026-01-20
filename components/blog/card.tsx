@@ -7,8 +7,15 @@ export function BlogCard({ post }: { post: Post }) {
   return (
     <Link
       href={`/blog/${post.category}/${post.slug}`}
-      className="card group flex flex-col justify-between space-y-4 transition-all hover:-translate-y-1 hover:border-accent/50"
+      className="card group relative flex flex-col justify-between space-y-4 transition-all hover:-translate-y-1"
     >
+      <div className="absolute mb-0 -bottom-px left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-250 ease-out group-hover:opacity-100" />
+      <div className="absolute mb-0 -bottom-px left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-250 ease-out group-hover:opacity-100 blur-xs" />
+
+      <div className="absolute inset-0 size-full overflow-hidden rounded-[inherit]">
+        <div className="absolute top-full left-1/2 size-32 -translate-x-1/2 rounded-full bg-accent/10 group-hover:bg-accent/25 blur-3xl transition-all duration-500 ease-out" />
+      </div>
+
       <div className="space-y-2">
         <h2 className="text-2xl font-bold tracking-tight text-left group-hover:text-accent transition-colors">
           {post.data.title}
