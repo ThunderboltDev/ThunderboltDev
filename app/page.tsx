@@ -313,8 +313,16 @@ export default function Home() {
             >
               <div className="absolute -top-px left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-250 ease-out group-hover:opacity-100" />
               <div className="absolute -top-px left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-250 ease-out group-hover:opacity-100 blur-xs" />
+
+              <div className="absolute top-0 bottom-0 -right-px w-px bg-gradient-to-b from-transparent via-accent to-transparent opacity-0 transition-opacity duration-250 ease-out group-hover:opacity-100" />
+              <div className="absolute top-0 bottom-0 -right-px w-px bg-gradient-to-b from-transparent via-accent to-transparent opacity-0 transition-opacity duration-250 ease-out group-hover:opacity-100 blur-xs" />
+
               <div className="absolute -bottom-px left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-250 ease-out group-hover:opacity-100" />
               <div className="absolute -bottom-px left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent opacity-0 transition-opacity duration-250 ease-out group-hover:opacity-100 blur-xs" />
+
+              <div className="absolute top-0 bottom-0 -left-px w-px bg-gradient-to-b from-transparent via-accent to-transparent opacity-0 transition-opacity duration-250 ease-out group-hover:opacity-100" />
+              <div className="absolute top-0 bottom-0 -left-px w-px bg-gradient-to-b from-transparent via-accent to-transparent opacity-0 transition-opacity duration-250 ease-out group-hover:opacity-100 blur-xs" />
+
               <div className="flex items-center gap-3">
                 <item.icon className="size-10 text-accent bg-accent/5 group-hover:bg-accent/10 p-2 rounded-sm transition-colors duration-250 ease-out" />
                 <h4>{item.name}</h4>

@@ -175,7 +175,7 @@
 @property --card-glow-l {
   syntax: "<number>";
   inherits: false;
-  initial-value: 0.2;
+  initial-value: 1;
 }
 
 @property --card-glow-c {
@@ -190,22 +190,34 @@
   initial-value: 0;
 }
 
+@property --card-glow-o {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0.1;
+}
+
 @property --card-glow-accent-l {
   syntax: "<number>";
   inherits: false;
-  initial-value: 0.968;
+  initial-value: 1;
 }
 
 @property --card-glow-accent-c {
   syntax: "<number>";
   inherits: false;
-  initial-value: 0.211;
+  initial-value: 0;
 }
 
 @property --card-glow-accent-h {
   syntax: "<number>";
   inherits: false;
-  initial-value: 109.77;
+  initial-value: 0;
+}
+
+@property --card-glow-accent-o {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0.1;
 }
 
 @utility card-glow {
@@ -214,31 +226,43 @@
 
   background: conic-gradient(
     from var(--card-glow-angle),
-    oklch(var(--card-glow-l) var(--card-glow-c) var(--card-glow-h)) 45%,
+    oklch(
+        var(--card-glow-l) var(--card-glow-c) var(--card-glow-h) /
+          var(--card-glow-o)
+      )
+      45%,
     oklch(
         var(--card-glow-accent-l) var(--card-glow-accent-c)
-          var(--card-glow-accent-h)
+          var(--card-glow-accent-h) / var(--card-glow-accent-o)
       )
       50%,
-    oklch(var(--card-glow-l) var(--card-glow-c) var(--card-glow-h)) 55%
+    oklch(
+        var(--card-glow-l) var(--card-glow-c) var(--card-glow-h) /
+          var(--card-glow-o)
+      )
+      55%
   );
 
   transition: --card-glow-l 250ms ease-in-out, --card-glow-c 250ms ease-in-out,
-    --card-glow-h 250ms ease-in-out, --card-glow-accent-l 250ms ease-in-out,
+    --card-glow-h 250ms ease-in-out, --card-glow-o 250ms ease-in-out,
+    --card-glow-accent-l 250ms ease-in-out,
     --card-glow-accent-c 250ms ease-in-out,
-    --card-glow-accent-h 250ms ease-in-out, filter 250ms ease-in-out;
+    --card-glow-accent-h 250ms ease-in-out,
+    --card-glow-accent-o 250ms ease-in-out, filter 250ms ease-in-out;
 
   animation: card-glow-rotate 6s infinite linear;
 }
 
 @utility card-glow-hover {
-  --card-glow-l: 0.4;
+  --card-glow-l: 1;
   --card-glow-c: 0;
   --card-glow-h: 0;
+  --card-glow-o: 0.05;
 
-  --card-glow-hover-l: 1;
-  --card-glow-hover-c: 0.5;
-  --card-glow-hover-h: 109.77;
+  --card-glow-accent-l: 0.968;
+  --card-glow-accent-c: 0.211;
+  --card-glow-accent-h: 109.77;
+  --card-glow-accent-o: 1;
 }
 
 @utility wrapper-* {

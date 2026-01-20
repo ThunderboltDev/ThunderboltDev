@@ -29,7 +29,7 @@ export function Project({
       className="relative group p-px"
     >
       <div className="card-glow group-hover:card-glow-hover" />
-      <div className="card-glow group-hover:blur-sm blur-xs" />
+      <div className="card-glow group-hover:card-glow-hover group-hover:blur-sm blur-[0px]" />
       <div className="relative card border-0 bg-secondary overflow-hidden p-0 md:min-w-xs">
         <div className="absolute inset-0 opacity-0 transition-opacity duration-250 ease-out group-hover:opacity-100">
           <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-accent/10" />
