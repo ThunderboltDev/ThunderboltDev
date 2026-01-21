@@ -363,6 +363,13 @@ export default function Home() {
         <h2 id="projects">My Projects</h2>
         <div className="mt-12 flex gap-8 flex-col md:flex-row">
           <Project
+            title="ApexTools"
+            description="Discover the best AI tools for productivity, coding, marketing, writing, and more."
+            tags={["Next.js", "TypeScript", "Supabase", "tRPC"]}
+            projectUrl="https://www.apextools.site?utm_source=portfolio&utm_medium=project&utm_campaign=apextools"
+            imageUrl="/projects/apextools.webp"
+          />
+          <Project
             title="Resound"
             description="Resound is an support platform for websites that combines website widget, real time conversations and team tools powered by AI."
             tags={["Next.js", "TypeScript", "Convex", "Turborepo"]}
@@ -370,11 +377,11 @@ export default function Home() {
             imageUrl="/projects/resound.webp"
           />
           <Project
-            title="PDF Pal"
+            title="PDFPal"
             description="An AI powered web platform that helps you analyze and understand your PDFs instantly. Chat, summarize and get valuable insights effortlessly!"
             tags={["Next.js", "TypeScript", "Supabase", "tRPC"]}
             projectUrl="https://pdfpal.thunderboltdev.site?utm_source=portfolio&utm_medium=project&utm_campaign=pdfpal"
-            imageUrl="/projects/pdf-pal.webp"
+            imageUrl="/projects/pdfpal.webp"
           />
         </div>
       </section>
