@@ -2,9 +2,10 @@ import type { MetadataRoute } from "next";
 import { url } from "@/config";
 import { getAllPosts } from "@/lib/posts";
 
-export async function generateStaticParams() {
+export async function generateSitemaps() {
   const posts = await getAllPosts();
   const categories = Array.from(new Set(posts.map((post) => post.category)));
+  
   return categories.map((category) => ({ category }));
 }
 
