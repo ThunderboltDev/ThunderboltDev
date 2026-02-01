@@ -46,7 +46,7 @@ export function TableOfContents({
           }
         });
       },
-      { rootMargin: "0% 0% -80% 0%" },
+      { rootMargin: "0% 0% -80% 0%" }
     );
 
     headings.forEach((item) => {
@@ -76,9 +76,9 @@ export function TableOfContents({
             className="absolute left-0.5 top-3 w-0.5 bg-accent rounded-full transition-all duration-300 ease-out"
             style={{
               height:
-                activeIndex >= 0 ?
-                  `calc(${((activeIndex + 1) / toc.length) * 100}% - 1.5rem)`
-                : "0%",
+                activeIndex >= 0
+                  ? `calc(${((activeIndex + 1) / toc.length) * 100}% - 1.5rem)`
+                  : "0%",
             }}
           />
           {toc.map((item, index) => {
@@ -94,18 +94,20 @@ export function TableOfContents({
                 <div
                   className={cn(
                     "absolute left-0 top-1/2 -translate-y-1/2 size-1.5 rounded-full transition-all duration-300",
-                    isActive ? "bg-accent scale-125 ring-2 ring-accent/25"
-                    : isPast ? "bg-accent"
-                    : "bg-muted",
+                    isActive
+                      ? "bg-accent scale-125 ring-2 ring-accent/25"
+                      : isPast
+                        ? "bg-accent"
+                        : "bg-muted"
                   )}
                 />
                 <a
                   href={`#${item.id}`}
                   className={cn(
                     "block py-1.5 text-[13px] leading-snug transition-all duration-200 hover:text-accent overflow-hidden truncate",
-                    isActive ?
-                      "font-medium text-accent"
-                    : "text-muted-foreground/75",
+                    isActive
+                      ? "font-medium text-accent"
+                      : "text-muted-foreground/75"
                   )}
                 >
                   {item.title}
@@ -136,9 +138,9 @@ export function TableOfContents({
                     href={`#${item.id}`}
                     className={cn(
                       "block text-sm transition-colors duration-200 hover:text-accent leading-relaxed",
-                      activeId === item.id ?
-                        "font-medium text-accent"
-                      : "text-muted-foreground",
+                      activeId === item.id
+                        ? "font-medium text-accent"
+                        : "text-muted-foreground"
                     )}
                   >
                     {item.title}
