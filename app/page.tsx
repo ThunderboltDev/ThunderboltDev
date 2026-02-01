@@ -124,7 +124,7 @@ const getBarHeight = (
   index: number,
   count: number,
   exponentBase: number,
-  maxHeight: number
+  maxHeight: number,
 ) => {
   const center = (count - 1) / 2;
   const minHeight = 10;
@@ -337,7 +337,7 @@ export default function Home() {
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 + skillIndex * 0.05 }}
                   >
-                    {typeof skill.icon === "string" ? (
+                    {typeof skill.icon === "string" ?
                       <Image
                         width={20}
                         height={20}
@@ -345,9 +345,7 @@ export default function Home() {
                         alt={skill.name}
                         className="size-5 pointer-events-none select-none"
                       />
-                    ) : (
-                      <skill.icon className="size-5 text-muted-foreground" />
-                    )}
+                    : <skill.icon className="size-5 text-muted-foreground" />}
                     <span className="text-sm font-medium text-muted-foreground">
                       {skill.name}
                     </span>
@@ -367,21 +365,21 @@ export default function Home() {
             description="Discover the best AI tools for productivity, coding, marketing, writing, and more."
             tags={["Next.js", "TypeScript", "Supabase", "tRPC"]}
             projectUrl="https://www.apextools.site?utm_source=portfolio&utm_medium=project&utm_campaign=apextools"
-            imageUrl="/projects/apextools.webp"
+            imageUrl="https://www.apextools.site/preview.webp"
           />
           <Project
             title="Resound"
             description="Resound is an support platform for websites that combines website widget, real time conversations and team tools powered by AI."
             tags={["Next.js", "TypeScript", "Convex", "Turborepo"]}
             projectUrl="https://resound.thunderboltdev.site?utm_source=portfolio&utm_medium=project&utm_campaign=resound"
-            imageUrl="/projects/resound.webp"
+            imageUrl="https://resound.thunderboltdev.site/preview.webp"
           />
           <Project
             title="PDFPal"
             description="An AI powered web platform that helps you analyze and understand your PDFs instantly. Chat, summarize and get valuable insights effortlessly!"
             tags={["Next.js", "TypeScript", "Supabase", "tRPC"]}
             projectUrl="https://pdfpal.thunderboltdev.site?utm_source=portfolio&utm_medium=project&utm_campaign=pdfpal"
-            imageUrl="/projects/pdfpal.webp"
+            imageUrl="https://pdfpal.thunderboltdev.site/preview.webp"
           />
         </div>
       </section>

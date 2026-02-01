@@ -26,13 +26,13 @@ export function Project({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.5 }}
-      className="relative group p-px"
+      className="relative flex group p-px"
     >
       <div className="card-glow group-hover:card-glow-hover" />
       <div className="card-glow group-hover:card-glow-hover group-hover:blur-sm blur-[0px]" />
-      <div className="relative card border-0 bg-secondary overflow-hidden p-0 md:min-w-xs">
+      <div className="relative card border-0 bg-secondary overflow-hidden p-0 md:min-w-xs flex-1">
         <div className="absolute inset-0 opacity-0 transition-opacity duration-250 ease-out group-hover:opacity-100">
-          <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-accent/10" />
+          <div className="absolute inset-0 bg-linear-to-br from-accent/5 via-transparent to-accent/10" />
         </div>
 
         <div className="absolute bottom-0 right-0 size-32 translate-x-16 -translate-y-16 rounded-full bg-accent/25 blur-3xl transition-transform duration-500 group-hover:translate-x-8 group-hover:-translate-y-8" />
@@ -44,8 +44,9 @@ export function Project({
               alt={title}
               className="image object-cover transition-transform duration-500 group-hover:scale-105"
               fill
+              unoptimized
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-background via-background/50 to-transparent" />
           </div>
 
           <div className="relative p-6">
