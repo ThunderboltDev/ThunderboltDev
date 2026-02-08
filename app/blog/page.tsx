@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Blog",
   description:
     "Insights, thoughts, and tutorials on web development, design, and building products.",
+  alternates: {
+    canonical: "/blog",
+  },
   keywords: [
     "developer blog",
     "web development blog",
