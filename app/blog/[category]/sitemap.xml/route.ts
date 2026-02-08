@@ -9,14 +9,13 @@ export async function generateStaticParams() {
 
 export async function GET(
   _request: Request,
-  { params }: { params: Promise<{ category: string }> },
+  { params }: { params: Promise<{ category: string }> }
 ) {
   const { category } = await params;
   const posts = await getAllPosts();
   const categoryPosts = posts.filter((post) => post.category === category);
 
-  const xml = `
-    <?xml version="1.0" encoding="UTF-8"?>
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       ${categoryPosts
         .map(
@@ -26,7 +25,7 @@ export async function GET(
           <lastmod>${(post.data.lastModified ?? post.data.date).toISOString()}</lastmod>
           <changefreq>weekly</changefreq>
           <priority>0.6</priority>
-        </url>`,
+        </url>`
         )
         .join("")}
     </urlset>`;
