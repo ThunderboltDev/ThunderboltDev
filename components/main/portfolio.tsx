@@ -124,7 +124,7 @@ const getBarHeight = (
   index: number,
   count: number,
   exponentBase: number,
-  maxHeight: number
+  maxHeight: number,
 ) => {
   const center = (count - 1) / 2;
   const minHeight = 10;
@@ -337,7 +337,7 @@ export function Portfolio() {
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 + skillIndex * 0.05 }}
                   >
-                    {typeof skill.icon === "string" ? (
+                    {typeof skill.icon === "string" ?
                       <Image
                         width={20}
                         height={20}
@@ -345,9 +345,7 @@ export function Portfolio() {
                         alt={skill.name}
                         className="size-5 pointer-events-none select-none"
                       />
-                    ) : (
-                      <skill.icon className="size-5 text-muted-foreground" />
-                    )}
+                    : <skill.icon className="size-5 text-muted-foreground" />}
                     <span className="text-sm font-medium text-muted-foreground">
                       {skill.name}
                     </span>
@@ -361,13 +359,20 @@ export function Portfolio() {
 
       <section>
         <h2 id="projects">My Projects</h2>
-        <div className="mt-12 flex gap-8 flex-col md:flex-row">
+        <div className="mt-12 grid gap-8 grid-cols-1 md:grid-cols-2">
           <Project
             title="ApexTools"
             description="Discover the best AI tools for productivity, coding, marketing, writing, and more."
             tags={["Next.js", "TypeScript", "Supabase", "tRPC"]}
             projectUrl="https://www.apextools.site?utm_source=portfolio&utm_medium=project&utm_campaign=apextools"
             imageUrl="https://www.apextools.site/preview.webp"
+          />
+          <Project
+            title="Cubit"
+            description="An AI powered web platform that helps you analyze and understand your PDFs instantly. Chat, summarize and get valuable insights effortlessly!"
+            tags={["TanStack Router", "TypeScript", "Vite"]}
+            projectUrl="https://cubit.thunderboltdev.site?utm_source=portfolio&utm_medium=project&utm_campaign=cubit"
+            imageUrl="https://cubit.thunderboltdev.site/preview.webp"
           />
           <Project
             title="Resound"
